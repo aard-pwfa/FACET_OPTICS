@@ -10,7 +10,7 @@ input.zmax   = 4.50e6; % ending z position (microns)
 % Ti:Saph parameters
 input.lambda = 0.800;   % wavelength (microns)
 input.t0     = 100e-15; % pulse width (s)
-input.e0     = 100e-3;  % pulse energy (J)
+input.e0     = 300e-3;  % pulse energy (J)
 input.eta    = 0.49;    % transmission efficieny
 input.r0     = 2.0;     % laser radius (cm)
 
@@ -42,8 +42,8 @@ input.thresh = 2E14; % ADK Threshold (W/cm^2)
 output = Fresnel_Prop(input);
 
 %% Plot data
-save_dir = 'axilens_plots/';
-save_bool = 0;
+save_dir = 'plots/axilens_3x1/';
+save_bool = 1;
 plot_window = 150;
 
 plot_fun(input,output,'3D',plot_window,1,save_bool,save_dir);
@@ -51,5 +51,3 @@ plot_fun(input,output,'IZ',plot_window,2,save_bool,save_dir);
 plot_fun(input,output,'IR',plot_window,3,save_bool,save_dir);
 plot_fun(input,output,'IntThresh',plot_window,4,save_bool,save_dir);
 plot_fun(input,output,'IntContour',plot_window,5,save_bool,save_dir);
-plot_fun(input,output,'IonContour',plot_window,6,save_bool,save_dir);
-
