@@ -20,6 +20,10 @@ elseif strcmp(input.type,'kinoform')
     kp    = 2*pi*sin(gamma)/input.lambda;
     m     = input.m;
     PSI = kp*rr+m*phi;
+elseif strcmp(input.type,'lens')
+    k0 = 2*pi/input.lambda;
+    f  = input.f;
+    PSI = k0*rr.^2/(2*f);
 else
     disp('Bad optic type');
 end
