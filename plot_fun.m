@@ -1,5 +1,7 @@
 function fig = plot_fun(input,output,plot_type,plot_window,fig,save_bool,save_dir)
 
+z_ind = round(numel(output.z_axis)/2);
+
 if nargin < 4
     low = 1;
     high = input.n_pts;
@@ -44,7 +46,7 @@ if strcmp(plot_type,'IZ')
 end
 
 if strcmp(plot_type,'IR')
-    z_ind = round(numel(output.z_axis)/2);
+    
     plot(output.x_axis(low:high)/1e4,output.Int_line(z_ind,low:high)/1e15,'k','linewidth',2); axis tight;
     xlabel('R [\mum]');
     ylabel('I [10^{15} W/cm^2]');
@@ -78,4 +80,14 @@ if strcmp(plot_type,'IonContour')
     ylabel(c,'I [W/cm^2]');
     set(gca,'fontsize',14);
     if save_bool; saveas(gcf,[save_dir 'Ionization_Contour.png']); end;
+end
+
+if strcmp(plot_type,'Image')
+    
+    imagesc(output.x_axis(low:high),output.x_axis(low:high),output.image(low:high,low:high,z_ind)); colormap(cmap.wbgyr); c = colorbar;
+    xlabel('X [\mum]');
+    ylabel('Y [\mum]');
+    ylabel(c,'I [W/cm^2]');
+    set(gca,'fontsize',14);
+    if save_bool; saveas(gcf,[save_dir 'Image.png']); end;
 end

@@ -19,6 +19,9 @@ thresh = input.thresh;
 output.Int_max  = zeros(nz,1);     % Maximum on axis intensity
 output.Int_line = zeros(nz,n_pts); % Lineout intensity
 output.r_thresh = zeros(nz,1);     % Maximum radius exceeding ionization threshold for central lobe
+if input.store_all
+    output.image = zeros(n_pts,n_pts,nz);
+end
 
 % Fresnel Calculation
 for i = 1:nz;
@@ -58,6 +61,9 @@ for i = 1:nz;
     % Record on-axis and lineout intensity
     output.Int_max(i)    = intensity(mid,mid);
     output.Int_line(i,:) = intensity(mid,:);
+    if input.store_all
+        output.image(:,:,i) = intensity;
+    end
     
     % Calculate plasma radius
     abv_thresh = intensity(mid,:) > thresh;
