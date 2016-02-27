@@ -12,8 +12,9 @@ lambda = input.lambda;   % wavelength in microns
 k0     = 2*pi/lambda;    % microns^-1
 I0     = input.eta*input.e0/(input.t0*pi*input.r0^2); % on-optic intensity
 
-% Threshold
-thresh = input.thresh;
+% Deprecated for now
+% % Threshold
+% thresh = input.thresh;
 
 % Output data
 output.Int_max  = zeros(nz,1);     % Maximum on axis intensity
@@ -65,12 +66,13 @@ for i = 1:nz;
         output.image(:,:,i) = intensity;
     end
     
-    % Calculate plasma radius
-    abv_thresh = intensity(mid,:) > thresh;
-    r_ind      = find(abv_thresh(mid:end)==0,1);
-    if ~isempty(r_ind)
-        output.r_thresh(i) = f(mid+r_ind-1);
-    end
+% Depricated for now    
+%     % Calculate plasma radius
+%     abv_thresh = intensity(mid,:) > thresh;
+%     r_ind      = find(abv_thresh(mid:end)==0,1);
+%     if ~isempty(r_ind)
+%         output.r_thresh(i) = f(mid+r_ind-1);
+%     end
     
 end
 
