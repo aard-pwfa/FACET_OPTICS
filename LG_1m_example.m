@@ -1,32 +1,33 @@
 %% Parameter Deck
 
 % Computation parameters
-input.n_pts  = 1024;   % number of pixels
-input.res    = 20;   % resolution in image plane (microns)
-input.nz     = 200;    % number of points in z
+input.n_pts  = 4096;   % number of pixels
+input.res    = 3.75;   % resolution in image plane (microns)
+input.nz     = 101;    % number of points in z
 input.zmin   = 2.00e6; % starting z position (microns)
-input.zmax   = 5.00e6; % ending z position (microns)
+input.zmax   = 4.00e6; % ending z position (microns)
 
 % Ti:Saph parameters
 input.lambda = 0.800;   % wavelength (microns)
 input.t0     = 100e-15; % pulse width (s)
-input.e0     = 150e-3;   % pulse energy (J)
+input.e0     = 40e-3;   % pulse energy (J)
 input.eta    = 0.49;    % transmission efficieny
 input.r0     = 2.0;     % laser radius (cm)
 
 % Optic parameters
-input.type   = 'axicon';  % can choose from 'axicon', 'axilens', and 'kinoform'
+input.type   = 'LG_1m';   % can choose from 'axicon', 'axilens', and 'kinoform'
 input.R      = 20.0e3;    % illuminated radius of mask (microns)
 input.f0     = 3e6;       % distance to axilens focus (microns) [if type==axilens]
+input.f      = 3e6;
 input.Dz     = 1e6;       % length of axilens focus (microns) [if type==axilens]
 input.ax_ang = 0.6;       % axicon angle (degrees) [if type==axicon]
 input.gamma  = 4.1e-3;    % convergence angle (radians) [if type==kinoform]
-input.m      = 8;         % bessel order [if type==kinoform]
+input.m      = 1;         % bessel order [if type==kinoform]
 
 % Illumination parameters
-input.illum  = 'tophat'; % options are 'tophat' which is an order 30 super gaussian, . . . 
+input.illum  = 'gaussian'; % options are 'tophat' which is an order 30 super gaussian, . . . 
                          % 'gaussian', 'mask' which has a hard edge, and 'flat' which is an infinite beam
-input.sigma  = 20.5e3;   % sigma of gaussian/super gaussian or radius of mask (microns)
+input.sigma  = 10.0e3;   % sigma of gaussian/super gaussian or radius of mask (microns)
 
 % Aberation parameters
 input.zern_amp = 2e-4;% amplitude of aberation
@@ -48,9 +49,9 @@ save_dir = 'plots/axicon_06_ion_frac/';
 save_bool = 0;
 plot_window = 150;
 
-%plot_fun(input,output,'3D',plot_window,1,save_bool,save_dir);
-%plot_fun(input,output,'IZ',plot_window,2,save_bool,save_dir);
-%plot_fun(input,output,'IR',plot_window,3,save_bool,save_dir);
+plot_fun(input,output,'3D',plot_window,1,save_bool,save_dir);
+plot_fun(input,output,'IZ',plot_window,2,save_bool,save_dir);
+plot_fun(input,output,'IR',plot_window,3,save_bool,save_dir);
 plot_fun(input,output,'IonContour',plot_window,4,save_bool,save_dir);
-%plot_fun(input,output,'IntContour',plot_window,5,save_bool,save_dir);
-%plot_fun(input,output,'Image',plot_window,6,save_bool,save_dir);
+plot_fun(input,output,'IntContour',plot_window,5,save_bool,save_dir);
+plot_fun(input,output,'Image',plot_window,6,save_bool,save_dir);

@@ -14,6 +14,12 @@ elseif strcmp(input.illum,'mask')
     AMP(abs(rr)<sigma) = 1;
 elseif strcmp(input.illum,'flat')
     AMP = ones(size(rr));
+elseif strcmp(input.illum,'gmask')
+    sigma = input.sigma;
+    order = input.order;
+    aptur = input.aptur;
+    AMP = zeros(size(rr));
+    AMP(abs(rr)<aptur) = exp(-(rr(abs(rr)<aptur).^order)/(2*(sigma)^order));
 else
     disp('Bad illumination type');
 end

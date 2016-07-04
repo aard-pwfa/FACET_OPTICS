@@ -24,6 +24,16 @@ elseif strcmp(input.type,'lens')
     k0  = 2*pi/input.lambda;
     f   = input.f;
     PSI = k0*rr.^2/(2*f);
+elseif strcmp(input.type,'LG_1m')
+    k0  = 2*pi/input.lambda;
+    f   = input.f;
+    m   = input.m;
+    PSI = k0*rr.^2/(2*f)+m*phi;
+elseif strcmp(input.type,'LG_p0')
+    k0  = 2*pi/input.lambda;
+    f   = input.f;
+    m   = input.m;
+    PSI = k0*rr.^2/(2*f)+m*phi;
 elseif strcmp(input.type,'axiramp')
     k0  = 2*pi/input.lambda;
     R   = input.R; 
