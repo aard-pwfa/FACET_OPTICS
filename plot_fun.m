@@ -57,7 +57,7 @@ end
 
 if strcmp(plot_type,'IR')
     
-    plot(output.x_axis(low:high)/1e4,output.Int_line(z_ind,low:high)/1e15,'k','linewidth',2); axis tight;
+    plot(output.x_axis(low:high),output.Int_line(z_ind,low:high)/1e15,'k','linewidth',2); axis tight;
     xlabel('R [\mum]');
     ylabel('I [10^{15} W/cm^2]');
     set(gca,'fontsize',18);
@@ -76,8 +76,8 @@ end
 if strcmp(plot_type,'IntContour')
     v = linspace(0,max(output.Int_line(:)),10);
     contourf(output.z_axis/1e4,output.x_axis(low:high),output.Int_line(:,low:high)',v); colormap(cmap.wbgyr); c = colorbar;
-    xlabel('R [\mum]');
-    ylabel('Z [cm]');
+    ylabel('R [\mum]');
+    xlabel('Z [cm]');
     ylabel(c,'I [W/cm^2]');
     set(gca,'fontsize',18);
     if save_bool; saveas(gcf,[save_dir 'Intensity_Contour.png']); end;
@@ -86,8 +86,8 @@ end
 if strcmp(plot_type,'IonContour')
     ion_cont = ADK_ion(input,output);
     pcolor(output.z_axis/1e4,output.x_axis(low:high),ion_cont(:,low:high)'); shading flat; colormap(cmap.wbgyr); c = colorbar;
-    xlabel('R [\mum]');
-    ylabel('Z [cm]');
+    ylabel('R [\mum]');
+    xlabel('Z [cm]');
     ylabel(c,'Ionization Fraction');
     set(gca,'fontsize',18);
     if save_bool; saveas(gcf,[save_dir 'Ionization_Contour.png']); end;
