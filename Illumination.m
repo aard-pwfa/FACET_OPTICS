@@ -3,11 +3,11 @@ function AMP = Illumination(rr,phi,input)
 if strcmp(input.illum,'tophat')
     sigma = input.sigma;
     order = 30;
-    AMP = exp(-(rr.^order)/(2*(sigma)^order));
+    AMP = sqrt(exp(-(rr.^order)/(2*(sigma)^order)));
 elseif strcmp(input.illum,'gaussian')
     sigma = input.sigma;
     order = 2;
-    AMP = exp(-(rr.^order)/(2*(sigma)^order));
+    AMP = sqrt(exp(-(rr.^order)/(2*(sigma)^order)));
 elseif strcmp(input.illum,'mask')
     sigma = input.sigma;
     AMP = zeros(size(rr));
@@ -19,7 +19,7 @@ elseif strcmp(input.illum,'gmask')
     order = input.order;
     aptur = input.aptur;
     AMP = zeros(size(rr));
-    AMP(abs(rr)<aptur) = exp(-(rr(abs(rr)<aptur).^order)/(2*(sigma)^order));
+    AMP(abs(rr)<aptur) = sqrt(exp(-(rr(abs(rr)<aptur).^order)/(2*(sigma)^order)));
 else
     disp('Bad illumination type');
 end
