@@ -1,7 +1,7 @@
 %% Parameter Deck
 
 % Computation parameters
-input.n_pts  = 2048;   % number of pixels
+input.n_pts  = 4096;   % number of pixels
 input.res    = 7.50;   % resolution in image plane (microns)
 input.nz     = 101;    % number of points in z
 input.zmin   = 2.00e6; % starting z position (microns)
@@ -10,7 +10,7 @@ input.zmax   = 4.00e6; % ending z position (microns)
 % Ti:Saph parameters
 input.lambda = 0.800;   % wavelength (microns)
 input.t0     = 100e-15; % pulse width (s)
-input.e0     = 60e-3;   % pulse energy (J)
+input.e0     = 40e-3;   % pulse energy (J)
 input.eta    = 0.49;    % transmission efficieny
 input.r0     = 2.0;     % laser radius (cm)
 
@@ -44,11 +44,12 @@ input.store_all = 0; % keep all transverse images (a lot of data)!
 output = Fresnel_Prop(input);
 
 %% Plot data
-save_dir = 'plots/kinoform_ion_frac_J8/';
+save_dir = 'plots/kinoform_ion_frac_J7/';
 save_bool = 0;
 plot_window = 100;
 
-plot_fun(input,output,'3D',plot_window,1,save_bool,save_dir);
-plot_fun(input,output,'IR',plot_window,2,save_bool,save_dir);
-plot_fun(input,output,'IonContour',plot_window,3,save_bool,save_dir);
-plot_fun(input,output,'IntContour',plot_window,4,save_bool,save_dir);
+
+plot_fun(input,output,'2D',plot_window,1,save_bool,save_dir);
+plot_fun(input,output,'IonContour',plot_window,2,save_bool,save_dir);
+plot_fun(input,output,'IntContour',plot_window,3,save_bool,save_dir);
+plot_fun(input,output,'3D',plot_window,4,save_bool,save_dir);

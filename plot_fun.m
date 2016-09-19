@@ -29,10 +29,11 @@ cmap = custom_cmap;
 figure(fig);
 
 if strcmp(plot_type,'2D')
-    pcolor(output.z_axis/1e4,output.x_axis(low:high),output.Int_line(:,low:high)'/1e15); shading interp; axis tight; colormap(cmap.wbgyr);
+    pcolor(output.z_axis/1e4,output.x_axis(low:high),output.Int_line(:,low:high)'); shading interp; axis tight;
+    colormap(cmap.wbgyr); c = colorbar;
     xlabel('Z [cm]');
     ylabel('Y [\mum]');
-    
+    ylabel(c,'I [W/cm^2]');
     %zlabel('I [10^{15} W/cm^2]');
     set(gca,'fontsize',18);
     if save_bool; saveas(gcf,[save_dir 'Intensity_3D.png']); end;
@@ -40,7 +41,7 @@ end
 
 if strcmp(plot_type,'3D')
     surf(output.x_axis(low:high),output.z_axis/1e4,output.Int_line(:,low:high)/1e15); shading interp; axis tight; colormap(cmap.wbgyr);
-    xlabel('R [\mum]');
+    xlabel('Y [\mum]');
     ylabel('Z [cm]');
     zlabel('I [10^{15} W/cm^2]');
     set(gca,'fontsize',18);
@@ -76,7 +77,7 @@ end
 if strcmp(plot_type,'IntContour')
     v = linspace(0,max(output.Int_line(:)),10);
     contourf(output.z_axis/1e4,output.x_axis(low:high),output.Int_line(:,low:high)',v); colormap(cmap.wbgyr); c = colorbar;
-    ylabel('R [\mum]');
+    ylabel('Y [\mum]');
     xlabel('Z [cm]');
     ylabel(c,'I [W/cm^2]');
     set(gca,'fontsize',18);
@@ -86,7 +87,7 @@ end
 if strcmp(plot_type,'IonContour')
     ion_cont = ADK_ion(input,output);
     pcolor(output.z_axis/1e4,output.x_axis(low:high),ion_cont(:,low:high)'); shading flat; colormap(cmap.wbgyr); c = colorbar;
-    ylabel('R [\mum]');
+    ylabel('Y [\mum]');
     xlabel('Z [cm]');
     ylabel(c,'Ionization Fraction');
     set(gca,'fontsize',18);

@@ -1,17 +1,17 @@
 %% Parameter Deck
 
 % Computation parameters
-input.n_pts  = 1024;   % number of pixels
-input.res    = 20;   % resolution in image plane (microns)
-input.nz     = 200;    % number of points in z
-input.zmin   = 2.00e6; % starting z position (microns)
-input.zmax   = 5.00e6; % ending z position (microns)
+input.n_pts  = 2048;   % number of pixels
+input.res    = 10;   % resolution in image plane (microns)
+input.nz     = 100;    % number of points in z
+input.zmin   = 0.25e6; % starting z position (microns)
+input.zmax   = 4.75e6; % ending z position (microns)
 
 % Ti:Saph parameters
 input.lambda = 0.800;   % wavelength (microns)
 input.t0     = 100e-15; % pulse width (s)
-input.e0     = 150e-3;   % pulse energy (J)
-input.eta    = 0.49;    % transmission efficieny
+input.e0     = 100e-3;   % pulse energy (J)
+input.eta    = 1.00;    % transmission efficieny
 input.r0     = 2.0;     % laser radius (cm)
 
 % Optic parameters
@@ -26,7 +26,7 @@ input.m      = 8;         % bessel order [if type==kinoform]
 % Illumination parameters
 input.illum  = 'tophat'; % options are 'tophat' which is an order 30 super gaussian, . . . 
                          % 'gaussian', 'mask' which has a hard edge, and 'flat' which is an infinite beam
-input.sigma  = 20.5e3;   % sigma of gaussian/super gaussian or radius of mask (microns)
+input.sigma  = 20.0e3;   % sigma of gaussian/super gaussian or radius of mask (microns)
 
 % Aberation parameters
 input.zern_amp = 2e-4;% amplitude of aberation
@@ -44,13 +44,14 @@ input.store_all = 0; % keep all transverse images (a lot of data)!
 output = Fresnel_Prop(input);
 
 %% Plot data
-save_dir = 'plots/axicon_06_ion_frac/';
-save_bool = 0;
-plot_window = 150;
+save_dir = 'plots/axicon_06_erik3/';
+save_bool = 1;
+plot_window = 50;
 
+plot_fun(input,output,'2D',plot_window,1,save_bool,save_dir);
 %plot_fun(input,output,'3D',plot_window,1,save_bool,save_dir);
-%plot_fun(input,output,'IZ',plot_window,2,save_bool,save_dir);
+plot_fun(input,output,'IZ',plot_window,2,save_bool,save_dir);
 %plot_fun(input,output,'IR',plot_window,3,save_bool,save_dir);
 plot_fun(input,output,'IonContour',plot_window,4,save_bool,save_dir);
-%plot_fun(input,output,'IntContour',plot_window,5,save_bool,save_dir);
+plot_fun(input,output,'IntContour',plot_window,5,save_bool,save_dir);
 %plot_fun(input,output,'Image',plot_window,6,save_bool,save_dir);
