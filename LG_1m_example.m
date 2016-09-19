@@ -1,8 +1,8 @@
 %% Parameter Deck
 
 % Computation parameters
-input.n_pts  = 4096;   % number of pixels
-input.res    = 3.75;   % resolution in image plane (microns)
+input.n_pts  = 1024;   % number of pixels
+input.res    = 8;   % resolution in image plane (microns)
 input.nz     = 101;    % number of points in z
 input.zmin   = 2.00e6; % starting z position (microns)
 input.zmax   = 4.00e6; % ending z position (microns)
@@ -31,14 +31,14 @@ input.sigma  = 10.0e3;   % sigma of gaussian/super gaussian or radius of mask (m
 
 % Aberation parameters
 input.zern_amp = 2e-4;% amplitude of aberation
-input.zern_m   = 0;   % add beam aberations with Zernike polynomials, for example . . .
-input.zern_n   = 0;   % m = 2, n = 2 is a vertical astigmatism. 0,0 is no aberation. For more, see . . .
+input.zern_m   = 2;   % add beam aberations with Zernike polynomials, for example . . .
+input.zern_n   = 2;   % m = 2, n = 2 is a vertical astigmatism. 0,0 is no aberation. For more, see . . .
                       % https://en.wikipedia.org/wiki/Zernike_polynomials#Zernike_polynomials
 
 % Other stuff
 input.Z_ion  = 1;    % number of electrons ionized
 input.E_ion  = 5.39; % 1st ionization energy (5.39 eV for Lithium, 13.6 eV for hydrogen)
-input.store_all = 0; % keep all transverse images (a lot of data)!
+input.store_all = 1; % keep all transverse images (a lot of data)!
 
 %% Calculate output intensity
 
