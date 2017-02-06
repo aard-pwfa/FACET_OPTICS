@@ -36,7 +36,7 @@ if strcmp(plot_type,'2D')
     ylabel(c,'I [W/cm^2]');
     %zlabel('I [10^{15} W/cm^2]');
     set(gca,'fontsize',18);
-    if save_bool; saveas(gcf,[save_dir 'Intensity_3D.png']); end;
+    if save_bool; saveas(gcf,[save_dir 'Intensity_2D.png']); end;
 end
 
 if strcmp(plot_type,'3D')

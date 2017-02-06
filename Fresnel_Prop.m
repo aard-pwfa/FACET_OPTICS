@@ -12,20 +12,26 @@ lambda = input.lambda;   % wavelength in microns
 k0     = 2*pi/lambda;    % microns^-1
 I0     = input.eta*input.e0/(input.t0*pi*input.r0^2); % on-optic intensity
 
-% Deprecated for now
-% % Threshold
-% thresh = input.thresh;
-
 % Output data
 output.Int_max  = zeros(nz,1);     % Maximum on axis intensity
 output.Int_line = zeros(nz,n_pts); % Lineout intensity
 output.r_thresh = zeros(nz,1);     % Maximum radius exceeding ionization threshold for central lobe
+
 if input.store_all
     output.image = zeros(n_pts,n_pts,nz);
 end
 
+if input.ionization
+    output.ion_cont = zeros(nz,n_pts);
+    output.max_ints = zeros(nz,1);
+    output.max_Efld = zeros(nz,1);
+    output.max_Ions = zeros(nz,1);
+    output.max_Keld = zeros(nz,1);
+end
+    
+
 % Fresnel Calculation
-for i = 1:nz;
+for i = 1:nz
     fprintf('Step %i of %i.\n',i,nz);
     
     z = zs(i);
@@ -66,13 +72,14 @@ for i = 1:nz;
         output.image(:,:,i) = intensity;
     end
     
-% Depricated for now    
-%     % Calculate plasma radius
-%     abv_thresh = intensity(mid,:) > thresh;
-%     r_ind      = find(abv_thresh(mid:end)==0,1);
-%     if ~isempty(r_ind)
-%         output.r_thresh(i) = f(mid+r_ind-1);
-%     end
+    if input.ionization
+        output.I0 = I0;
+        output.ion_cont(i,:) = ADK_ion(input,output);
+        output.max_ints(i) = max(output.Int_line(i,:));
+        output.max_Efld(i) = EfromI(output.max_ints(i));
+        output.max_Ions(i) = max(output.ion_cont(i,:));
+        output.max_Keld(i) = get_keldysh(input,output.max_Efld(i));
+    end
     
 end
 

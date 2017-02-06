@@ -16,7 +16,7 @@ input.r0     = 2.0;     % laser radius (cm)
 
 % Optic parameters
 input.type   = 'kinoform';  % can choose from 'axicon', 'axilens', and 'kinoform'
-input.R      = 20.0e3;    % illuminated radius of mask (microns)
+input.R      = 25.0e3;    % illuminated radius of mask (microns)
 input.f0     = 3e6;       % distance to axilens focus (microns) [if type==axilens]
 input.Dz     = 1e6;       % length of axilens focus (microns) [if type==axilens]
 input.ax_ang = 0.375;     % axicon angle (degrees) [if type==axicon]
@@ -26,7 +26,7 @@ input.m      = 7;         % bessel order [if type==kinoform]
 % Illumination parameters
 input.illum  = 'tophat'; % options are 'tophat' which is an order 30 super gaussian, . . . 
                          % 'gaussian', 'mask' which has a hard edge, and 'flat' which is an infinite beam
-input.sigma  = 17.0e3;   % sigma of gaussian/super gaussian or radius of mask (microns)
+input.sigma  = 16.0e3;   % sigma of gaussian/super gaussian or radius of mask (microns)
 
 % Aberation parameters
 input.zern_amp = 2e-4;% amplitude of aberation
