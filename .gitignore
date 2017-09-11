@@ -1,4 +1,5 @@
 .DS_Store
 scratch/
 plots/
+pathdef.m
 *.m~

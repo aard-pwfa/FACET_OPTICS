@@ -22,10 +22,12 @@ if input.store_all
 end
 
 if input.ionization
-    output.ion_cont = zeros(nz,n_pts);
+    output.ion_cont_adk = zeros(nz,n_pts);
+    output.ion_cont_ppt = zeros(nz,n_pts);
     output.max_ints = zeros(nz,1);
     output.max_Efld = zeros(nz,1);
-    output.max_Ions = zeros(nz,1);
+    output.max_Ions_adk = zeros(nz,1);
+    output.max_Ions_ppt = zeros(nz,1);
     output.max_Keld = zeros(nz,1);
 end
     
@@ -46,17 +48,32 @@ for i = 1:nz
     % Fresnel image plane
     f = linspace(-lambda*z/(2*dr),lambda*z/(2*dr),n_pts);
     
-    % Optical phase
-    PSI = Optics(rr,phi,input);
-    
-    % Aberations
-    PSI = Aberations(rr,phi,input,PSI,r_max);
-    
-    % Illumination
-    AMP = Illumination(rr,phi,input);
-    
-    % Field
-    field = AMP.*exp(-1i*PSI);
+    if strcmp(input.type,'AFTB') || strcmp(input.type,'AFTB2')
+        
+        % Optical phase and amplitude modulation
+        AMP_PSI = Amplitude_Phase(rr,input,z);
+        
+        % Illumination
+        AMP = Illumination(rr,phi,input);
+        
+        % Field
+        field = AMP.*AMP_PSI;
+        
+    else
+        
+        % Optical phase
+        PSI = Optics(rr,phi,input);
+        
+        % Aberations
+        PSI = Aberations(rr,phi,input,PSI,r_max);
+        
+        % Illumination
+        AMP = Illumination(rr,phi,input);
+        
+        % Field
+        field = AMP.*exp(-1i*PSI);
+        
+    end
     
     % fresnel term
     fresnel = exp(1i*k0*z)*exp(1i*k0*rr.^2/(2*z))/(1i*lambda*z);
@@ -74,11 +91,14 @@ for i = 1:nz
     
     if input.ionization
         output.I0 = I0;
-        output.ion_cont(i,:) = ADK_ion(input,output);
+        [PPT,ADK,kGamma] = ionFun(input.E_ion,output.Int_line(i,:),1000*lambda,0.001,input.t0);
+        output.ion_cont_adk(i,:) = ADK;
+        output.ion_cont_ppt(i,:) = PPT;
         output.max_ints(i) = max(output.Int_line(i,:));
         output.max_Efld(i) = EfromI(output.max_ints(i));
-        output.max_Ions(i) = max(output.ion_cont(i,:));
-        output.max_Keld(i) = get_keldysh(input,output.max_Efld(i));
+        output.max_Ions_adk(i) = max(output.ion_cont_adk(i,:));
+        output.max_Ions_ppt(i) = max(output.ion_cont_ppt(i,:));
+        output.max_Keld(i) = min(kGamma);
     end
     
 end
